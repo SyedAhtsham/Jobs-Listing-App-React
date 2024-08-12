@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Card = ({ bg = 'bg-gray-100', title, subtitle, btnText, btnColor = "bg-black", btnHoverColor ="hover:bg-gray-700"}) => {
+
+const Card = ({ bg = 'bg-gray-100', title, subtitle, btnText, btnColor = "bg-black", btnHoverColor ="hover:bg-gray-700", toLink}) => {
     return (
         <>
             <div className={`${bg} p-6 rounded-lg shadow-md `}>
@@ -8,12 +10,12 @@ const Card = ({ bg = 'bg-gray-100', title, subtitle, btnText, btnColor = "bg-bla
                 <p className="mt-2 mb-4">
                     {subtitle}
                 </p>
-                <a
-                    href="/jobs.html"
+                <Link
+                    to={toLink}
                     className={`inline-block ${btnColor} text-white rounded-lg px-4 py-2 ${btnHoverColor}`}
                 >
                     {btnText}
-                </a>
+                </Link>
             </div>
         </>
     )
