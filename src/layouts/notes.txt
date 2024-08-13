@@ -1,0 +1,10 @@
+useEffect:
+
+We'll make a request suing the useEffect
+we'll not have the jobs until the component loads through the useEffect, and then
+
+we will fill the component fields with the data using the API
+
+we need to create a proxy, localhose:8000/jobs will not work on the 
+deployed version, therefore, we need to have somthing like this ./jobs/1
+
