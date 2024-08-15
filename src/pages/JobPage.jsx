@@ -38,11 +38,12 @@ import { useParams, useLoaderData, useNavigate } from 'react-router-dom'
 import Spinner from '../components/Spinner'
 import { Link } from 'react-router-dom'
 import { FaMapMarker, FaArrowLeft } from 'react-icons/fa'
+import { toast } from 'react-toastify'
 
 import React from 'react'
 
 const JobPage = ({ deleteJob }) => {
-  
+
   const { id } = useParams();
   const job = useLoaderData();
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ const JobPage = ({ deleteJob }) => {
     if (!confirm) return;
 
     deleteJob(jobId);
+    toast.success("Job deleted successfully!")
 
     navigate('/jobs');
 
@@ -66,7 +68,7 @@ const JobPage = ({ deleteJob }) => {
             href="/jobs"
             className="text-indigo-500 hover:text-indigo-600 flex items-center"
           >
-           <FaArrowLeft className='mr-4'/>  Back to Job Listings
+            <FaArrowLeft className='mr-4' />  Back to Job Listings
           </a>
         </div>
       </section>
@@ -80,12 +82,12 @@ const JobPage = ({ deleteJob }) => {
               >
                 <div className="text-gray-500 mb-4">Full-Time</div>
                 <h1 className="text-3xl font-bold mb-4">
-                  { job.title }
+                  {job.title}
                 </h1>
                 <div
                   className="text-orange-700 mb-4 flex align-middle justify-center md:justify-start"
                 >
-                
+
                   <FaMapMarker className='inline text-lg mr-1' />
                   <p className="text-orange-700">{job.location}</p>
                 </div>
@@ -135,7 +137,7 @@ const JobPage = ({ deleteJob }) => {
               <div className="bg-white p-6 rounded-lg shadow-md mt-6">
                 <h3 className="text-xl font-bold mb-6">Manage Job</h3>
                 <Link
-                  href={`/jobs/edit/${id}`}
+                  href={`/edit-job/${job.id}`}
                   className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
                 >Edit Job</Link>
                 <button
