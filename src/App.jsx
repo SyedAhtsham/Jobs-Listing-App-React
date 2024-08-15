@@ -13,38 +13,67 @@ import JobPage, { jobLoader } from './pages/JobPage'
 import AddJobPage from './pages/AddJobPage'
 // import JobPage from './pages/JobPage'
 
-const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route path='/' element={<MainLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path='/jobs' element={<JobsPage />} />
-            {/* <Route path='/jobs/:id' element={<JobPage />}/> */}
-            <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob} />} />
-            <Route path='/jobs/:id' element={<JobPage />} loader={jobLoader} />
-            <Route path='*' element={<NotFoundPage />} />
-            
-            
-        </Route>
-    )
 
-);
 
 const App = () => {
+
+    // Add new Job
+    const addJob = async (newJob) => {
+        alert("yesss")
+        const res = await fetch('/api/jobs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newJob)
+        });
+        return;
+    }
+
+    // Delete Job
+    const deleteJob = async (id) => {
+console.log(id)
+        const res = await fetch(`/api/jobs/${id}`, {
+            method: 'DELETE',
+        });
+        return;
+    }
+
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+            <Route path='/' element={<MainLayout />}>
+                <Route index element={<HomePage />} />
+                <Route path='/jobs' element={<JobsPage />} />
+                {/* <Route path='/jobs/:id' element={<JobPage />}/> */}
+                <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob} />} />
+                <Route path='/jobs/:id' element={<JobPage deleteJob={deleteJob} />}  loader={jobLoader} />
+                <Route path='*' element={<NotFoundPage />} />
+
+
+            </Route>
+        )
+
+    );
+
     return <RouterProvider router={router} />;
+
+
     // <>
 
     //     <Navbar />
     //     <Hero />
-    //     {/* Wrapper compnents are the components within other compnent, Within home cards, there will be 
+    //     {/* Wrapper compnents are the components within other compnent, Within home cards, there will be
     //   card component*/}
     //     <HomeCards />
     //     <JobListings />
     //     <ViewAllJobs />
-    //     {/* React router is a seperate package for the routing of pages, since react is just a 
+    //     {/* React router is a seperate package for the routing of pages, since react is just a
     //     library and not a complete framework */}
 
 
     // </>
+
+
 }
 
 export default App
