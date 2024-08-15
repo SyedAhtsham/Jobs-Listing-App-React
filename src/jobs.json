@@ -2,15 +2,15 @@
   "jobs": [
     {
       "id": "1",
-      "title": "Senior React Developer",
+      "title": "Software Engineer",
       "type": "Full-Time",
-      "description": "We are seeking a talented Front-End Developer to join our team in Boston, MA. The ideal candidate will have strong skills in HTML, CSS, and JavaScript, with experience working with modern JavaScript frameworks such as React or Angular.",
       "location": "Boston, MA",
-      "salary": "$70K - $80K",
+      "description": "We are seeking a talented Front-End Developer to join our team in Boston, MA. The ideal candidate will have strong skills in HTML, CSS, and JavaScript, with experience working with modern JavaScript frameworks such as React or Angular.",
+      "salary": "$150K - $175K",
       "company": {
         "name": "NewTek Solutions",
         "description": "NewTek Solutions is a leading technology company specializing in web development and digital solutions. We pride ourselves on delivering high-quality products and services to our clients while fostering a collaborative and innovative work environment.",
-        "contactEmail": "contact@teksolutions.com",
+        "contactEmail": "contact@teksolutions.coma",
         "contactPhone": "555-555-5555"
       }
     },
@@ -110,6 +110,20 @@
         "description": "afs",
         "contactEmail": "syedahtshamqau@gmail.com",
         "contactPhone": "4107770110"
+      }
+    },
+    {
+      "id": "536e",
+      "title": "safd",
+      "type": "Remote",
+      "location": "asdf",
+      "description": "asf",
+      "salary": "Under $50K",
+      "company": {
+        "name": "safd",
+        "description": "asf",
+        "contactEmail": "syedahtshamqau@gmail.com",
+        "contactPhone": "asdf"
       }
     }
   ]
