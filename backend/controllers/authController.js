@@ -76,3 +76,15 @@ exports.logout = (req, res, next) => {
         message: "Logged out"
     })
 }
+
+
+// company profile
+exports.companyProfile = async (req, res, next) => {
+    console.log(req.company.id);
+    const company = await Company.findById(req.company.id).select('-password');
+
+    res.status(200).json({
+        sucess: true,
+        company
+    })
+}
