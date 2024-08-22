@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 // Define the job schema
 const jobSchema = new mongoose.Schema({
     id: {
-        type: String,
-        required: true,
+        type: Number,
         unique: true
     },
     title: {
@@ -60,6 +60,11 @@ const jobSchema = new mongoose.Schema({
 }, {
     timestamps: true // Automatically adds createdAt and updatedAt fields
 });
+
+
+// Apply the auto-increment plugin to the `id` field
+jobSchema.plugin(AutoIncrement, { inc_field: 'id' });
+
 
 // Create the Job model using the schema
 const Job = mongoose.model('Job', jobSchema);

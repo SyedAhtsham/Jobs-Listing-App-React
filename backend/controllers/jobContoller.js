@@ -26,12 +26,12 @@ exports.addJob = async (req, res, next) => {
 exports.allJobs = async (req, res, next) => {
     const pageSize = 10;
     const page = Number(req.query.pageNumber) || 1;
-    const count = await Job.find().estimatedDocumentCount();
+    const count = await Job.countDocuments();
     try {
         const jobs = await Job.find().sort({ createdAt: -1 }).select('-password')
             .skip(pageSize * (page - 1))
             .limit(pageSize);
-        
+
 
         res.status(200).json({
             success: true,
@@ -52,13 +52,60 @@ exports.allJobs = async (req, res, next) => {
 // get single job
 exports.singleJob = async (req, res, next) => {
     try {
-        const job = await Job.findById(req.params.id);
+        const job = await Job.findOne({ id: req.params.id });
+
+        if (!job) {
+            return res.status(404).json({ success: false, message: 'Job not found' });
+        }
+
         res.status(200).json({
             success: true,
             job
-        })
-        next();
+        });
     } catch (error) {
-        return next(error);        
+        next(error);
     }
 }
+
+
+
+// edit a job
+exports.editJob = async (req, res, next) => {
+    try {
+        const job = await Job.findOneAndUpdate({ id: req.params.id }, req.body, { new: true });
+        if (!job) {
+            return res.status(404).json({ success: false, message: 'Job not found' });
+        }
+
+        res.status(200).json({
+            success: true,
+            job
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+
+// remove a job
+exports.removeJob = async (req, res, next) => {
+    try {
+        const job = await Job.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+        if (!job) {
+            return res.status(404).json({ success: false, message: 'Job not found' });
+        }
+
+        res.status(200).json({
+            success: true,
+            job
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+
+
