@@ -16,5 +16,8 @@ router.get('/jobs/:id', singleJob);
 // edit a job
 router.put('/jobs/edit/:id', isAuthenticated, isEmployer, editJob);
 
+// remove a job
+router.delete('/jobs/remove-job/:id', isAuthenticated, isEmployer, editJob);
+
 
 module.exports = router;

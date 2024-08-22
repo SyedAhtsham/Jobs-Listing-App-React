@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+
 
 // Define the Company Schema
 const companySchema = new mongoose.Schema({
+    _id: {
+        type: Number, // Assuming auto-increment is being used
+    },
     name: {
         type: String,
         required: [true, 'Name is required'],
@@ -45,6 +50,9 @@ const companySchema = new mongoose.Schema({
     }
 }, { timestamps: true }); // created and updated date will be created using this timestamps TRUE
 
+companySchema.plugin(AutoIncrement, { id: 'com_seq', inc_field: '_id' });
+
+
 // Encrypting the password before we save it
 companySchema.pre('save', async function (next) {
     if (!this.isModified('password')) { 
@@ -67,6 +75,7 @@ companySchema.methods.getJwtToken = function () {
         expiresIn: 3600
     })
 }
+
 
 
 // Create the Company model

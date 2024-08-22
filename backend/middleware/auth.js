@@ -1,6 +1,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const jwt = require("jsonwebtoken");
 const Company = require("../models/companyModel");
+const Job = require("../models/jobModel");
 
 
 // check if user is authenticated
@@ -24,8 +25,10 @@ exports.isAuthenticated = async (req, res, next) => {
 
 // admin middleware
 exports.isEmployer = (req, res, next) => {
+
     if (req.company.role !== "Company") {
         return next(new ErrorResponse("Access denied, only registered employer can access this route", 401))
     }
     next();
 }
+
