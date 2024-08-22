@@ -8,6 +8,8 @@ var cors = require("cors");
 const cookieParser = require("cookie-parser")
 const errorHandler = require("./middleware/error");
 const authRoutes = require('./routes/authRoutes');
+const jobRoutes = require('./routes/jobRoutes');
+
 
 //Customer errros in Middleware
 app.use(errorHandler);
@@ -33,6 +35,7 @@ app.use(cors());
 
 //Routes Middleware
 app.use('/api', authRoutes);
+app.use('/api', jobRoutes);
 
 
 // DATABASE connection
@@ -49,7 +52,7 @@ mongoose.connect(process.env.DATABASE, {
 
 
 //port
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 9000
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)

@@ -17,6 +17,10 @@ router.get('/logout', logout);
 router.get('/profile', isAuthenticated, companyProfile);
 
 
+
+
+
+
 module.exports = router;
 
 

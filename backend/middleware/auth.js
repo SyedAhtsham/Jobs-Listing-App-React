@@ -23,3 +23,9 @@ exports.isAuthenticated = async (req, res, next) => {
 
 
 // admin middleware
+exports.isEmployer = (req, res, next) => {
+    if (req.company.role !== "Company") {
+        return next(new ErrorResponse("Access denied, only registered employer can access this route", 401))
+    }
+    next();
+}
