@@ -20,6 +20,9 @@ const JobListings = ({ isHome = false }) => {
         }
     }, [jobs]);
 
+    // Determine jobs to display
+    const displayJobs = isHome ? jobs.slice(0, 3) : jobs;
+
     return (
         <>
             {/* <!-- Browse Jobs --> */}
@@ -33,7 +36,7 @@ const JobListings = ({ isHome = false }) => {
                         <Spinner loading={loading} />
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {jobs.map((job) => (
+                            {displayJobs.map((job) => (
                                 <JobListing key={job._id} job={job} />
                             ))}
                         </div>
