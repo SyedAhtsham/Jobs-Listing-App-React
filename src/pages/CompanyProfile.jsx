@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useParams, useLoaderData, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { FaMapMarker, FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaMapMarker, FaEye, FaEyeSlash } from 'react-icons/fa';
 import Spinner from '../components/Spinner';
 
 const CompanyProfile = () => {
     const navigate = useNavigate();
+
+    // Get companyInfo from Redux state
+    const { companyInfo, loading } = useSelector((state) => state.companySignIn || {});
 
     // State to manage password visibility
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -15,6 +17,19 @@ const CompanyProfile = () => {
         setPasswordVisible(!passwordVisible);
     };
 
+    // If the companyInfo is not available (user is not logged in), redirect to login page
+    if (!companyInfo) {
+        navigate('/login');
+        return null;
+    }
+
+    // Show a loading spinner while the data is being fetched
+    if (loading) {
+        return <Spinner />;
+    }
+
+    // Destructure the necessary information from companyInfo
+    const { name, description, contactEmail, contactPhone, password } = companyInfo.user;
 
     return (
         <>
@@ -26,50 +41,45 @@ const CompanyProfile = () => {
                                 <div className="bg-white p-6 rounded-lg shadow-md">
                                     <h3 className="text-xl font-bold mb-6">Company Info</h3>
 
-                                    <h2 className="text-2xl">BitSol Technologies</h2>
+                                    <h2 className="text-2xl">{name}</h2>
                                     <p className="mt-2 mb-4">
                                         <FaMapMarker className="text-orange-700 inline mb-2 mr-1" />
+                                        {/* Replace this with the actual address */}
                                         3416 Juneway, Baltimore, MD
                                     </p>
                                     <p className="my-2">
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat quis rerum est ipsam recusandae provident quod inventore nesciunt. Nihil voluptatibus praesentium corrupti ad optio! Odio facilis quibusdam debitis harum nobis!
+                                        {description}
                                     </p>
 
                                     <hr className="my-4" />
 
                                     <h3 className="text-xl">Contact Email:</h3>
                                     <p className="my-2 bg-indigo-100 p-2 font-bold">
-                                        bitsol@gmail.com
+                                        {contactEmail}
                                     </p>
 
                                     <h3 className="text-xl mt-6">Contact Phone:</h3>
-                                    <p className="my-2 bg-indigo-100 p-2 font-bold">+92315-5726162</p>
-
-
+                                    <p className="my-2 bg-indigo-100 p-2 font-bold">
+                                        {contactPhone}
+                                    </p>
                                 </div>
 
                                 <div className="bg-white p-6 rounded-lg shadow-md mt-6">
                                     <h3 className="text-xl font-bold mb-6">Login Credentials</h3>
 
-                                    {/* Password Field */}
                                     <h3 className="text-xl">Email:</h3>
                                     <div className="my-2 bg-indigo-100 p-2 font-bold flex items-center">
-                                        <span className="mr-2">
-                                            bitsol@gmail.com
-                                        </span>
-
+                                        <span className="mr-2">{contactEmail}</span>
                                     </div>
 
-                                    {/* Password Field */}
                                     <h3 className="text-xl mt-6">Password:</h3>
                                     <div className="flex items-center my-2 bg-indigo-100 p-2 ">
                                         <input
                                             type={passwordVisible ? 'text' : 'password'}
-                                            value={"shah1234"}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            className="w-full bg-indigo-100 font-bold  focus:outline-none "
+                                            value={password} // Display the actual password here
+                                            onChange={() => { }}
+                                            className="w-full bg-indigo-100 font-bold focus:outline-none"
                                             readOnly
-
                                         />
                                         <button
                                             type="button"
@@ -79,7 +89,6 @@ const CompanyProfile = () => {
                                             {passwordVisible ? <FaEyeSlash /> : <FaEye />}
                                         </button>
                                     </div>
-
                                 </div>
 
                                 <div className="bg-white p-6 rounded-lg shadow-md mt-6">

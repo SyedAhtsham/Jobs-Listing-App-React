@@ -16,6 +16,7 @@ import CompanyProfile from './pages/CompanyProfile'
 import EditCompanyProfile from './pages/EditCompanyProfile'
 import SignupPage from './pages/SignupPage'
 import LoginPage from './pages/LoginPage'
+import CompanyRoute from './components/CompanyRoute'
 // import JobPage from './pages/JobPage'
 
 
@@ -63,7 +64,7 @@ const App = () => {
                 <Route path='/jobs' element={<JobsPage />} />
                 {/* <Route path='/jobs/:id' element={<JobPage />}/> */}
                 <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob} />} />
-                <Route path='/profile' element={<CompanyProfile />} />
+                <Route path='/profile' element={<CompanyRoute><CompanyProfile /></CompanyRoute>} />
                 <Route path='/signup' element={<SignupPage />} />
                 <Route path='/login' element={<LoginPage />} />
                 <Route path='/edit-profile' element={<EditCompanyProfile />} />

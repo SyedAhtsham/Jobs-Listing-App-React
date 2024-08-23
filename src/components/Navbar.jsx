@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from '../assets/images/logo.png';
 import { NavLink } from 'react-router-dom';
 import { FaChevronDown, FaUser, FaEdit, FaSignOutAlt } from 'react-icons/fa';
+import LogoutButton from './LogoutButton';
 
 const Navbar = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -59,13 +60,10 @@ const Navbar = () => {
                                                     >
                                                         Edit Profile <FaEdit className="ml-2" />
                                                     </NavLink>
-                                                    <NavLink
-                                                        to="/logout"
-                                                        className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                                        role="menuitem"
-                                                    >
-                                                        Logout <FaSignOutAlt className="ml-2" />
-                                                    </NavLink>
+                                                    <div>
+                                                        <LogoutButton />
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         )}

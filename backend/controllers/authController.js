@@ -85,7 +85,7 @@ exports.companyProfile = async (req, res, next) => {
         if (!req.company) {
             return next(new ErrorResponse("Sorry, Log in to view your profile", 401));
         }
-    const company = await Company.findById(req.company.id).select('-password');
+    const company = await Company.findById(req.company._id).select('-password');
 
     res.status(200).json({
         sucess: true,

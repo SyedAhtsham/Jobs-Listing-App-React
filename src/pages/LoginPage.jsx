@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -8,11 +8,17 @@ import { signInAction } from '../redux/actions/companyActions';
 const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { loading, companyInfo, error } = useSelector((state) => state.companySignIn);
+    const { loading = false, companyInfo = null, error = null, isAuthenticated = false } = useSelector((state) => state.companySignIn || {});
 
     const [contactEmail, setContactEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/profile');
+        }
+    }, [isAuthenticated, navigate]);
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
@@ -24,7 +30,6 @@ const LoginPage = () => {
         try {
             // Dispatch the login action
             await dispatch(signInAction({ contactEmail, password }));
-            // navigate('/dashboard');
         } catch (err) {
             toast.error(error || 'Invalid Credentials');
         }
@@ -37,7 +42,7 @@ const LoginPage = () => {
                 <form onSubmit={handleFormSubmit}>
                     {/* contactEmail */}
                     <div className="mb-4">
-                        <label className="text-xl">contactEmail:</label>
+                        <label className="text-xl">Email:</label>
                         <input
                             type="email"
                             value={contactEmail}
@@ -47,23 +52,23 @@ const LoginPage = () => {
                             required
                         />
                     </div>
-                {console.log(companyInfo)}
+
                     {/* Password */}
                     <div className="mb-6">
                         <label className="text-xl">Password:</label>
-                        <div className="flex items-center mt-2 bg-indigo-100 p-2 rounded-md">
+                        <div className="relative mt-2">
                             <input
                                 type={passwordVisible ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full bg-indigo-100 p-2 font-bold rounded-md"
+                                className="w-full bg-indigo-100 p-2 rounded-md pr-10" // Adjust padding on the right
                                 placeholder="Enter your password"
                                 required
                             />
                             <button
                                 type="button"
                                 onClick={togglePasswordVisibility}
-                                className="text-gray-600 hover:text-gray-800 focus:outline-none ml-2"
+                                className="absolute inset-y-0 right-2 flex items-center text-gray-600 hover:text-gray-800 focus:outline-none"
                             >
                                 {passwordVisible ? <FaEyeSlash /> : <FaEye />}
                             </button>

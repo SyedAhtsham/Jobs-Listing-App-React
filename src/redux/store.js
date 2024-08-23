@@ -1,19 +1,33 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { thunk } from 'redux-thunk';
+import {thunk} from 'redux-thunk'; // Import as default
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { loadJobReducer } from './reducers/jobReducer';
 import { companySigninReducer } from './reducers/companyReducer';
 
-
-// combine reducers
 const reducer = combineReducers({
     loadJobs: loadJobReducer,
-    companySignIn: companySigninReducer
+    companySignIn: companySigninReducer,
 });
 
-//initial state
-let initialState = {};
+const companyInfoFromStorage = localStorage.getItem('companyInfo')
+    ? JSON.parse(localStorage.getItem('companyInfo'))
+    : null;
+
+const initialState = {
+    companySignIn: {
+        companyInfo: companyInfoFromStorage,
+        loading: false,
+        isAuthenticated: !!companyInfoFromStorage,
+        error: null,
+    },
+};
+
 const middleware = [thunk];
-const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
+
+const store = createStore(
+    reducer,
+    initialState,
+    composeWithDevTools(applyMiddleware(...middleware))
+);
 
 export default store;
