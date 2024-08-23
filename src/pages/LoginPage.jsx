@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInAction } from '../redux/actions/companyActions';
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { loading, companyInfo, error } = useSelector((state) => state.companySignIn);
 
-    const [email, setEmail] = useState('');
+    const [contactEmail, setContactEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -14,13 +18,16 @@ const LoginPage = () => {
         setPasswordVisible(!passwordVisible);
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        // Add login logic here (e.g., API call to authenticate the user)
-
-        toast.success('Logged in successfully!');
-        navigate('/dashboard');
+        try {
+            // Dispatch the login action
+            await dispatch(signInAction({ contactEmail, password }));
+            // navigate('/dashboard');
+        } catch (err) {
+            toast.error(error || 'Invalid Credentials');
+        }
     };
 
     return (
@@ -28,19 +35,19 @@ const LoginPage = () => {
             <div className="container mx-auto p-6 w-full max-w-md bg-white rounded-lg shadow-md">
                 <h3 className="text-2xl font-bold mb-6 text-center">Log In</h3>
                 <form onSubmit={handleFormSubmit}>
-                    {/* Email */}
+                    {/* contactEmail */}
                     <div className="mb-4">
-                        <label className="text-xl">Email:</label>
+                        <label className="text-xl">contactEmail:</label>
                         <input
                             type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={contactEmail}
+                            onChange={(e) => setContactEmail(e.target.value)}
                             className="w-full p-2 mt-2 bg-indigo-100 rounded-md"
                             placeholder="Enter your email"
                             required
                         />
                     </div>
-
+                {console.log(companyInfo)}
                     {/* Password */}
                     <div className="mb-6">
                         <label className="text-xl">Password:</label>
@@ -68,8 +75,9 @@ const LoginPage = () => {
                         <button
                             type="submit"
                             className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-20 rounded-full focus:outline-none focus:shadow-outline"
+                            disabled={loading}
                         >
-                            Log In
+                            {loading ? 'Logging in...' : 'Log In'}
                         </button>
                     </div>
                 </form>
