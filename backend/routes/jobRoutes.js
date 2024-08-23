@@ -1,23 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const { addJob, allJobs, singleJob, editJob } = require("../controllers/jobContoller");
-const { isAuthenticated, isEmployer } = require('../middleware/auth');
+const { addJob, allJobs, singleJob, editJob, removeJob, postedJobs } = require("../controllers/jobContoller");
+const { isAuthenticated, isAuthorised } = require('../middleware/auth');
 
 
 // add job
-router.post('/add-job', isAuthenticated, isEmployer, addJob);
+router.post('/add-job', isAuthenticated, addJob);
 
-// all jobs
+// view all jobs
 router.get('/jobs', allJobs);
 
-// single job
+// view all posted jobs
+router.get('/posted-jobs',isAuthenticated, postedJobs);
+
+// view single job
 router.get('/jobs/:id', singleJob);
 
 // edit a job
-router.put('/jobs/edit/:id', isAuthenticated, isEmployer, editJob);
+router.put('/jobs/edit/:id', isAuthenticated, isAuthorised, editJob);
 
 // remove a job
-router.delete('/jobs/remove-job/:id', isAuthenticated, isEmployer, editJob);
+router.delete('/jobs/remove-job/:id', isAuthenticated, isAuthorised, removeJob);
+
 
 
 module.exports = router;
