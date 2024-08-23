@@ -80,11 +80,53 @@ exports.logout = (req, res, next) => {
 
 // company profile
 exports.companyProfile = async (req, res, next) => {
-    console.log(req.company.id);
+    try {
+    
+        if (!req.company) {
+            return next(new ErrorResponse("Sorry, Log in to view your profile", 401));
+        }
     const company = await Company.findById(req.company.id).select('-password');
 
     res.status(200).json({
         sucess: true,
         company
     })
+    next();
+} catch (error) {
+     next(error)
+}
+
+}
+
+
+// edit profile
+exports.editProfile = async (req, res, next) => {
+
+    try {
+        const company = await Company.findByIdAndUpdate(req.company._id, req.body, {new: true});
+        res.status(201).json({
+            success: true,
+            company
+        })
+        next();
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+
+// remove company profile
+exports.removeProfile = async (req, res, next) => {
+    try {
+        const removedJob = await Company.findByIdAndDelete(req.company._id);
+
+        res.status(200).json({
+            success: true,
+            message: "Profile has been deleted"
+        })
+        next();
+    } catch (error) {
+        next(error);
+    }
 }

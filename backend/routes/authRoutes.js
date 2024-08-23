@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { signup, signin, logout, companyProfile } = require('../controllers/authController');
+const { signup, signin, logout, companyProfile, editProfile, removeProfile } = require('../controllers/authController');
 const { isAuthenticated } = require('../middleware/auth');
 
 //auth routes
@@ -16,7 +16,11 @@ router.get('/logout', logout);
 // /api/company
 router.get('/profile', isAuthenticated, companyProfile);
 
+// edit Profile
+router.put('/edit-profile', isAuthenticated, editProfile);
 
+// remvoe Profile
+router.delete('/remove-profile', isAuthenticated, removeProfile);
 
 
 
