@@ -23,9 +23,7 @@ const EditJobPage = ({updateJobSubmit}) => {
   const updateJob = (e) => {
     e.preventDefault();
 
-
-
-
+    
     const newJob = {
       id,
       title,

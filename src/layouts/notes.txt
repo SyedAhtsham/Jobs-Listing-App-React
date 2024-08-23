@@ -18,3 +18,13 @@ render while fetching, a fallback UI is provided while the data is being fetched
 
 useParams is a react hook through which we can use the id passed through
 url inside the page 
+
+
+
+Implemneted the foreign key relationship and
+I have to update the edit-job and view-only jobs related to the logged in company
+
+And delete job corresponding ot the current logged in company only
+
+using authorisaiton and authenticaiton
+
