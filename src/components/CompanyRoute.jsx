@@ -8,11 +8,11 @@ const CompanyRoute = ({ children }) => {
     // Optional: Redirect or take actions if companyInfo is missing
     useEffect(() => {
         if (!companyInfo) {
-            <Navigate to="/profile" />;
+            <Navigate to="/jobs" />;
         }
     }, [companyInfo]);
 
-    return companyInfo ? children : <Navigate to="/profile" />;
+    return companyInfo ? children : <Navigate to="/jobs" />;
 };
 
 export default CompanyRoute;

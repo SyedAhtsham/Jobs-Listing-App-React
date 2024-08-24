@@ -29,12 +29,12 @@ const CompanyProfile = () => {
     }
 
     // Destructure the necessary information from companyInfo
-    const { name, description, contactEmail, contactPhone, password } = companyInfo.user;
+    const { name,address, description, contactEmail, contactPhone, password } = companyInfo.user;
 
     return (
         <>
             <section className="bg-indigo-50">
-                <div className="container m-auto py-10 px-6">
+                <div className="container max-w-[940px] m-auto py-10 px-6">
                     <div className="grid grid-cols-1 w-full gap-6">
                         <main>
                             <div>
@@ -45,7 +45,7 @@ const CompanyProfile = () => {
                                     <p className="mt-2 mb-4">
                                         <FaMapMarker className="text-orange-700 inline mb-2 mr-1" />
                                         {/* Replace this with the actual address */}
-                                        3416 Juneway, Baltimore, MD
+                                        {address ? address : "n/a"}
                                     </p>
                                     <p className="my-2">
                                         {description}
@@ -53,12 +53,12 @@ const CompanyProfile = () => {
 
                                     <hr className="my-4" />
 
-                                    <h3 className="text-xl">Contact Email:</h3>
+                                    <h3 className="text-xl">Email:</h3>
                                     <p className="my-2 bg-indigo-100 p-2 font-bold">
                                         {contactEmail}
                                     </p>
 
-                                    <h3 className="text-xl mt-6">Contact Phone:</h3>
+                                    <h3 className="text-xl mt-6">Phone:</h3>
                                     <p className="my-2 bg-indigo-100 p-2 font-bold">
                                         {contactPhone}
                                     </p>

@@ -35,8 +35,8 @@ const SignupPage = () => {
     };
 
     return (
-        <section className="bg-indigo-50 min-h-screen flex items-center justify-center p-4">
-            <div className="container mx-auto p-6  w-full bg-white rounded-lg shadow-md ">
+        <section className="bg-indigo-50 min-h-screen  flex items-center justify-center p-4">
+            <div className="container mx-auto p-6 mt-10 max-w-[940px] w-full bg-white rounded-lg shadow-md ">
                 <div className="grid grid-cols-1 w-full gap-6">
                 <h3 className="text-2xl font-bold mb-6 text-center">Company Sign Up</h3>
                 <form onSubmit={handleFormSubmit}>

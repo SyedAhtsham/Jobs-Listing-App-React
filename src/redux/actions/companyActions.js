@@ -49,10 +49,10 @@ export const logoutAction = () => (dispatch) => {
     dispatch({
         type: COMPANY_LOGOUT
     });
-
+    
     // Display success toast notification
     toast.success("Logged out successfully");
-
+    navigate('/');
     // Optionally, you can navigate the user to a login page or home page
-    navigate('/jobs'); // or wherever you want to redirect
+     // or wherever you want to redirect
 };

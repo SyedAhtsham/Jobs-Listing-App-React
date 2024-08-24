@@ -2,18 +2,23 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 const EditCompanyProfile = () => {
     const navigate = useNavigate();
     const { id } = useParams();
+    const { companyInfo, loading } = useSelector((state) => state.companySignIn || {});
+
+    const { name, address, description, contactEmail, contactPhone, password } = companyInfo.user;
+    
 
     // State to manage form fields
-    const [companyName, setCompanyName] = useState('BitSol Technologies');
-    const [address, setAddress] = useState('3416 Juneway, Baltimore, MD');
-    const [description, setDescription] = useState('Lorem ipsum dolor sit amet consectetur adipisicing elit.');
-    const [contactEmail, setContactEmail] = useState('bitsol@gmail.com');
-    const [contactPhone, setContactPhone] = useState('+92315-5726162');
-    const [password, setPassword] = useState('CompanyPassword123');
+    const [companyName, setCompanyName] = useState(name);
+    const [address1, setAddress1] = useState(address);
+    const [description1, setDescription1] = useState(description);
+    const [contactEmail1, setContactEmail1] = useState(contactEmail);
+    const [contactPhone1, setContactPhone1] = useState(contactPhone);
+    const [password1, setPassword1] = useState(password);
     const [passwordVisible, setPasswordVisible] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -29,9 +34,12 @@ const EditCompanyProfile = () => {
         navigate(`/company-profile/${id}`);
     };
 
+    // Destructure the necessary information from companyInfo
+
+
     return (
         <section className="bg-indigo-50">
-            <div className="container m-auto py-10 px-6">
+            <div className="container max-w-[940px] m-auto py-10 px-6">
                 <div className="grid grid-cols-1 w-full gap-6">
                     <main>
                         <form onSubmit={handleFormSubmit}>
@@ -50,35 +58,35 @@ const EditCompanyProfile = () => {
                                 <label className="text-xl mt-6">Address:</label>
                                 <input
                                     type="text"
-                                    value={address}
-                                    onChange={(e) => setAddress(e.target.value)}
+                                    value={address1}
+                                    onChange={(e) => setAddress1(e.target.value)}
                                     className="w-full p-2 my-2 bg-indigo-100 rounded-md"
                                     required
                                 />
 
                                 <label className="text-xl mt-6">Description:</label>
                                 <textarea
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
+                                    value={description1}
+                                    onChange={(e) => setDescription1(e.target.value)}
                                     className="w-full p-2 my-2 bg-indigo-100 rounded-md"
                                     rows="5"
                                     required
                                 />
 
-                                <label className="text-xl mt-6">Contact Email:</label>
+                                <label className="text-xl mt-6">Email:</label>
                                 <input
                                     type="email"
-                                    value={contactEmail}
+                                    value={contactEmail1}
                                     onChange={(e) => setContactEmail(e.target.value)}
                                     className="w-full p-2 my-2 bg-indigo-100 rounded-md"
                                     required
                                 />
 
-                                <label className="text-xl mt-6">Contact Phone:</label>
+                                <label className="text-xl mt-6">Phone:</label>
                                 <input
                                     type="text"
-                                    value={contactPhone}
-                                    onChange={(e) => setContactPhone(e.target.value)}
+                                    value={contactPhone1}
+                                    onChange={(e) => setContactPhone1(e.target.value)}
                                     className="w-full p-2 my-2 bg-indigo-100 rounded-md"
                                     required
                                 />
@@ -90,8 +98,8 @@ const EditCompanyProfile = () => {
                                 <label className="text-xl">Email:</label>
                                 <input
                                     type="email"
-                                    value={contactEmail}
-                                    onChange={(e) => setContactEmail(e.target.value)}
+                                    value={contactEmail1}
+                                    onChange={(e) => setContactEmail1(e.target.value)}
                                     className="w-full p-2 my-2 bg-indigo-100 rounded-md"
                                     required
                                 />
@@ -100,8 +108,8 @@ const EditCompanyProfile = () => {
                                 <div className="flex items-center my-2 bg-indigo-100 p-2 rounded-md">
                                     <input
                                         type={passwordVisible ? 'text' : 'password'}
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        value={password1}
+                                        onChange={(e) => setPassword1(e.target.value)}
                                         className="w-full bg-indigo-100 p-2 font-bold rounded-md"
                                         required
                                     />

@@ -21,7 +21,12 @@ const companySchema = new mongoose.Schema({
         trim: true,
         maxlength: [400, 'Desccription cannot exceed 400 characters']
     },
-
+    address: {
+        type: String,
+        required: [true, 'Address is required'],
+        trim: true,
+        maxlength: [400, 'Address cannot exceed 400 characters']
+    },
     contactEmail: {
         type: String,
         required: [true, 'Email is required'],
